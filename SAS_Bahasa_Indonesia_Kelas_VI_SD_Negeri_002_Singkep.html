@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAS Bahasa Indonesia Kelas VI - SD Negeri 002 Singkep</title>
+<style>
+:root{--navy:#183153;--teal:#138a82;--mint:#e9f7f3;--pink:#f16b83;--ink:#243247;--muted:#64748b}
+*{box-sizing:border-box}body{margin:0;background:#f3f7fb;color:var(--ink);font:16px/1.58 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+header{background:linear-gradient(120deg,#17385f,#b84c75);color:white;padding:34px 18px;text-align:center}
+header h1{margin:4px 0;font-size:clamp(25px,4vw,38px)}header p{margin:5px 0}.tag{display:inline-block;background:#ffffff25;border:1px solid #ffffff55;border-radius:20px;padding:5px 12px;margin:5px;font-size:13px}
+main{max-width:950px;margin:22px auto;padding:0 14px}.panel,.section{background:white;border-radius:16px;padding:20px;margin:16px 0;box-shadow:0 5px 18px #1c355010}
+h2{color:var(--navy);margin:0 0 12px;font-size:22px}.info{background:var(--mint);border-left:4px solid var(--teal);padding:12px 14px;border-radius:8px}
+label{font-weight:650;display:block;margin:10px 0 5px}input[type=text],select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px;font:inherit;background:white}
+.q{padding:14px 0;border-bottom:1px solid #e8edf3}.q:last-child{border:0}.q p{margin:0 0 9px}.num{font-weight:800;color:var(--teal);margin-right:6px}
+.options{display:grid;gap:7px}.options label{font-weight:400;display:flex;align-items:flex-start;gap:9px;margin:2px 0;padding:8px 10px;border:1px solid #e5eaf0;border-radius:9px;cursor:pointer}.options label:hover{background:#f7fbfb}
+.options input{margin-top:5px;accent-color:var(--teal)}
+.matchgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.matchitem{padding:10px;border:1px solid #e5eaf0;border-radius:10px}
+button{border:0;border-radius:11px;padding:13px 20px;font-size:16px;font-weight:750;cursor:pointer}
+.primary{background:var(--teal);color:white}.secondary{background:#e8eef5;color:var(--navy)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+#result{display:none}.score{font-size:44px;font-weight:850;color:var(--teal)}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f1f7f8;border-radius:12px;padding:12px;text-align:center}.stat b{display:block;font-size:23px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{padding:9px;border-bottom:1px solid #e5eaf0;text-align:left}th{background:#f2f7f9}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:25px}
+@media(max-width:600px){.matchgrid,.summary{grid-template-columns:1fr}.panel,.section{padding:15px}}
+@media print{header{background:#fff;color:#000}button{display:none}.panel,.section{box-shadow:none;break-inside:avoid}}
+</style></head>
+<body>
+<header><div class="tag">SUMATIF AKHIR SEMESTER 1</div><h1>ASESMEN BAHASA INDONESIA</h1><p><b>SD NEGERI 002 SINGKEP</b></p><p>Tahun Pelajaran 2026/2027</p><div class="tag">KELAS VI • 40 SOAL • C2, C3, C4</div></header>
+<main>
+<div class="panel">
+<h2>Petunjuk Pengerjaan</h2>
+<div class="info">Bacalah setiap narasi dengan teliti. Kerjakan 20 soal pilihan ganda, 10 soal benar–salah, dan 10 soal menjodohkan. Setiap soal bernilai 2,5 poin. Isi identitas terlebih dahulu, kemudian tekan <b>Kirim dan Lihat Nilai</b> setelah selesai.</div>
+<label for="student">Nama peserta didik</label><input id="student" type="text" placeholder="Tuliskan nama lengkap">
+<label for="kelas">Kelas</label><input id="kelas" type="text" value="VI">
+</div>
+<form id="quiz">
+<section class="section"><h2>📝 A. Pilihan Ganda (Nomor 1–20)</h2><p>Pilih satu jawaban yang paling tepat.</p><div id="mc"></div></section>
+<section class="section"><h2>☑️ B. Benar atau Salah (Nomor 21–30)</h2><p>Pilih Benar atau Salah berdasarkan pernyataan.</p><div id="tf"></div></section>
+<section class="section"><h2>🔗 C. Menjodohkan (Nomor 31–40)</h2><p>Pilih pasangan yang tepat dari daftar pilihan.</p>
+<div class="info"><b>Daftar pasangan:</b><br>A. Pernyataan umum &nbsp; B. Deretan penjelas &nbsp; C. Konjungsi sebab-akibat &nbsp; D. Amanat &nbsp; E. Makna konotatif<br>F. Narasumber &nbsp; G. Pertanyaan terbuka &nbsp; H. Simpulan observasi &nbsp; I. Fakta &nbsp; J. Ide pokok</div>
+<div id="match"></div></section>
+<div class="actions"><button class="primary" type="submit">Kirim dan Lihat Nilai</button><button class="secondary" type="reset">Ulangi Jawaban</button></div>
+</form>
+<section class="panel" id="result"><h2>Hasil Sumatif Akhir Semester</h2><div id="studentResult"></div><div class="score" id="score"></div><div class="summary"><div class="stat"><b id="correct">0</b>Benar</div><div class="stat"><b id="wrong">0</b>Salah</div><div class="stat"><b id="total">40</b>Total soal</div></div><h2 style="margin-top:20px">Rekap Nilai</h2><table><thead><tr><th>Komponen</th><th>Jumlah Soal</th><th>Benar</th><th>Salah</th><th>Skor Maksimal</th></tr></thead><tbody id="breakdown"></tbody></table><p id="message"></p><div class="actions"><button class="secondary" onclick="window.print()">Cetak Rekap</button><button class="primary" onclick="location.reload()">Kerjakan Kembali</button></div><p><small>Catatan: Nilai ditampilkan pada perangkat peserta didik. Agar guru menerima rekap seluruh peserta secara terpusat, halaman perlu dihubungkan dengan Google Sheets atau basis data online.</small></p></section>
+</main><footer>Disusun untuk pembelajaran Bahasa Indonesia Kelas VI • SD Negeri 002 Singkep • TP 2026/2027</footer>
+<script>
+const mc=[
+["Dalam kegiatan literasi, Dito membaca teks tentang proses terjadinya hujan. Teks tersebut menjelaskan penguapan air, pembentukan awan, hingga turunnya hujan. Jenis teks yang dibaca Dito adalah ....",["Teks cerita rakyat","Teks eksplanasi","Teks wawancara","Laporan observasi"],1,"C2"],
+["Sebuah teks dibuka dengan paragraf yang mengenalkan fenomena banjir dan penyebab umumnya. Dalam struktur teks eksplanasi, bagian tersebut disebut ....",["Pernyataan umum","Deretan penjelas","Penutup atau interpretasi","Amanat"],0,"C2"],
+["Setelah menjelaskan proses terjadinya pelangi secara berurutan, penulis menuliskan simpulan tentang fenomena tersebut. Bagian simpulan itu termasuk ....",["Judul","Pernyataan umum","Penutup atau interpretasi","Daftar pertanyaan"],2,"C2"],
+["Nina diminta membaca puisi di depan kelas. Agar isi bacaan mudah dipahami pendengar, Nina sebaiknya ....",["Membaca secepat mungkin","Menggunakan suara jelas, intonasi, dan pelafalan tepat","Membaca sambil bercanda","Mengecilkan suara pada semua bagian"],1,"C3"],
+["Dalam diskusi, Raka tidak setuju dengan pendapat temannya tentang kebersihan sekolah. Cara menyampaikan pendapat yang baik adalah ....",["Menyela dan mengejek","Memaksakan pendapat sendiri","Berbicara sopan disertai alasan logis","Diam lalu menyalahkan teman"],2,"C3"],
+["Kalimat: “Tanaman tumbuh subur karena mendapat air yang cukup.” Kata penghubung karena menyatakan hubungan ....",["Waktu","Sebab-akibat","Urutan","Perbandingan"],1,"C2"],
+["Siswa menyusun laporan proses membuat kompos. Kata penghubung yang tepat untuk menunjukkan urutan langkah adalah ....",["Karena","Sebab","Pertama, kemudian, akhirnya","Walaupun"],2,"C3"],
+["Dalam cerita rakyat, tokoh utama membantu warga desa tanpa mengharapkan imbalan. Nilai yang paling menonjol dari tindakan tokoh tersebut adalah ....",["Keserakahan","Kepedulian sosial","Keangkuhan","Kecurangan"],1,"C3"],
+["Sebuah cerita rakyat diwariskan dari generasi ke generasi dan penciptanya tidak diketahui. Ciri cerita rakyat tersebut adalah ....",["Selalu ditulis penulis terkenal","Bersifat anonim dan diwariskan secara lisan","Berisi laporan ilmiah","Hanya menceritakan kejadian masa kini"],1,"C2"],
+["Dalam cerita, seekor kancil menipu buaya agar dapat menyeberangi sungai. Unsur intrinsik yang menunjukkan pelaku dalam cerita adalah ....",["Latar","Alur","Tokoh","Tema"],2,"C2"],
+["Seorang anak berkata, “Ayah adalah tulang punggung keluarga.” Ungkapan tulang punggung pada kalimat tersebut bermakna ....",["Bagian tubuh untuk berdiri","Orang yang menjadi penopang utama keluarga","Orang yang sedang sakit","Pekerjaan di rumah sakit"],1,"C3"],
+["Pada jurnal membaca, Sinta menuliskan judul buku, nama penulis, tanggal membaca, ringkasan cerita, dan pendapatnya. Kegiatan Sinta bertujuan ....",["Menghafal semua halaman","Mencatat dan memahami pengalaman membaca","Mengganti isi buku","Menilai teman yang membaca"],1,"C2"],
+["Ketua kelas akan mewawancarai petugas perpustakaan tentang cara merawat buku. Orang yang memberikan informasi dalam wawancara disebut ....",["Pewawancara","Narasumber","Penonton","Penulis"],1,"C2"],
+["Sebelum wawancara, kelompok Rani menentukan topik, tujuan, narasumber, lalu menyusun daftar pertanyaan. Susunan tersebut merupakan ....",["Kerangka wawancara","Simpulan observasi","Alur cerita rakyat","Struktur teks eksplanasi"],0,"C2"],
+["Untuk mengetahui pendapat pustakawan secara luas tentang minat baca siswa, pertanyaan yang paling tepat adalah ....",["Apakah perpustakaan buka?","Apakah buku ini baru?","Bagaimana cara meningkatkan minat baca siswa di sekolah?","Apakah Ibu bekerja hari ini?"],2,"C4"],
+["Saat wawancara berlangsung, narasumber sedang menjawab pertanyaan. Sikap pewawancara yang tepat adalah ....",["Memotong pembicaraan","Mendengarkan dengan saksama dan mencatat informasi penting","Bermain telepon","Mengubah topik tanpa alasan"],1,"C3"],
+["Kelompok Beni mengamati tanaman mangga di halaman sekolah. Mereka mencatat bentuk daun, tinggi tanaman, dan kondisi batang berdasarkan pengamatan langsung. Teks yang tepat untuk menyajikan hasil kegiatan tersebut adalah ....",["Cerita fantasi","Laporan hasil observasi","Pantun","Dialog drama"],1,"C2"],
+["Dalam laporan observasi, kalimat “Daun mangga berbentuk lonjong dan berwarna hijau” termasuk ....",["Fakta hasil pengamatan","Opini pribadi","Amanat cerita","Pertanyaan wawancara"],0,"C3"],
+["Kalimat yang menggunakan huruf kapital dengan tepat adalah ....",["andi pergi ke jakarta pada hari sabtu.","Andi pergi ke Jakarta pada hari Sabtu.","Andi pergi ke jakarta pada hari sabtu.","andi pergi ke Jakarta pada hari Sabtu."],1,"C3"],
+["Bacalah paragraf: “Perpustakaan sekolah menyediakan berbagai buku pengetahuan dan cerita. Siswa dapat membaca saat istirahat. Perpustakaan juga menjadi tempat mencari informasi untuk tugas.” Ide pokok paragraf tersebut adalah ....",["Siswa beristirahat di sekolah","Perpustakaan menyediakan bahan bacaan dan sumber informasi","Semua siswa memiliki tugas","Buku cerita lebih menarik daripada buku pengetahuan"],1,"C4"]
+];
+const tf=[
+["Teks eksplanasi menjelaskan bagaimana atau mengapa suatu fenomena atau proses dapat terjadi.",true,"C2"],
+["Deretan penjelas dalam teks eksplanasi berisi urutan proses atau sebab-akibat suatu peristiwa.",true,"C2"],
+["Membaca nyaring bertujuan agar bacaan tidak dapat didengar orang lain.",false,"C2"],
+["Kata “karena” dapat digunakan untuk menunjukkan hubungan sebab-akibat.",true,"C2"],
+["Cerita rakyat umumnya berkembang secara turun-temurun dalam masyarakat.",true,"C2"],
+["Tema adalah urutan peristiwa yang dialami tokoh dalam cerita.",false,"C2"],
+["Pertanyaan terbuka memberi kesempatan narasumber menjawab secara lebih luas.",true,"C2"],
+["Pewawancara adalah orang yang memberikan jawaban atau informasi dalam wawancara.",false,"C2"],
+["Laporan hasil observasi disusun berdasarkan fakta hasil pengamatan secara sistematis dan objektif.",true,"C2"],
+["Opini selalu dapat dibuktikan kebenarannya dan tidak dipengaruhi pendapat pribadi.",false,"C2"]
+];
+const matches=[
+["Bagian awal teks eksplanasi yang mengenalkan fenomena","A","C2"],
+["Bagian teks eksplanasi yang memaparkan proses atau sebab-akibat","B","C2"],
+["Kata hubung yang menunjukkan alasan atau akibat","C","C2"],
+["Pesan yang ingin disampaikan penulis kepada pembaca","D","C2"],
+["Makna tambahan yang mengandung nilai rasa","E","C2"],
+["Orang yang memberikan informasi dalam wawancara","F","C2"],
+["Jenis pertanyaan yang memungkinkan jawaban luas","G","C2"],
+["Bagian laporan observasi yang merangkum hasil pengamatan","H","C2"],
+["Informasi yang benar-benar terjadi dan dapat dibuktikan","I","C2"],
+["Gagasan utama yang menjadi inti pembahasan paragraf","J","C2"]
+];
+const letters=["A","B","C","D","E","F","G","H","I","J"];
+const descriptions=["Pernyataan umum","Deretan penjelas","Konjungsi sebab-akibat","Amanat","Makna konotatif","Narasumber","Pertanyaan terbuka","Simpulan observasi","Fakta","Ide pokok"];
+const mcEl=document.getElementById("mc");
+mc.forEach((q,i)=>{let d=document.createElement("div");d.className="q";d.innerHTML=`<p><span class="num">${i+1}.</span>${q[0]} <small>(${q[3]})</small></p><div class="options">${q[1].map((v,j)=>`<label><input type="radio" name="m${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${v}</label>`).join("")}</div>`;mcEl.appendChild(d)});
+const tfEl=document.getElementById("tf");
+tf.forEach((q,i)=>{let d=document.createElement("div");d.className="q";d.innerHTML=`<p><span class="num">${i+21}.</span>${q[0]} <small>(${q[2]})</small></p><div class="options"><label><input type="radio" name="t${i}" value="true"> Benar</label><label><input type="radio" name="t${i}" value="false"> Salah</label></div>`;tfEl.appendChild(d)});
+const matchEl=document.getElementById("match");
+matches.forEach((q,i)=>{let opts=letters.map((l,j)=>`<option value="${l}">${l}. ${descriptions[j]}</option>`).join("");let d=document.createElement("div");d.className="matchitem";d.innerHTML=`<label>${i+31}. ${q[0]} <small>(${q[2]})</small></label><select name="j${i}"><option value="">-- Pilih pasangan --</option>${opts}</select>`;matchEl.appendChild(d)});
+document.getElementById("quiz").addEventListener("submit",e=>{
+e.preventDefault();let name=document.getElementById("student").value.trim();if(!name){alert("Silakan isi nama peserta didik terlebih dahulu.");document.getElementById("student").focus();return}
+let mcCorrect=0,tfCorrect=0,matchCorrect=0,unanswered=0;
+mc.forEach((q,i)=>{let a=document.querySelector(`input[name="m${i}"]:checked`);if(!a)unanswered++;else if(Number(a.value)===q[2])mcCorrect++});
+tf.forEach((q,i)=>{let a=document.querySelector(`input[name="t${i}"]:checked`);if(!a)unanswered++;else if((a.value==="true")===q[1])tfCorrect++});
+matches.forEach((q,i)=>{let a=document.querySelector(`select[name="j${i}"]`);if(!a.value)unanswered++;else if(a.value===q[1])matchCorrect++});
+let correct=mcCorrect+tfCorrect+matchCorrect,wrong=40-correct,score=correct*2.5;
+document.getElementById("studentResult").innerHTML=`<b>Nama:</b> ${escapeHtml(name)} &nbsp; | &nbsp; <b>Kelas:</b> ${escapeHtml(document.getElementById("kelas").value||"VI")}`;
+document.getElementById("score").textContent=score.toFixed(1).replace(".",",")+"/100";
+document.getElementById("correct").textContent=correct;document.getElementById("wrong").textContent=wrong;document.getElementById("total").textContent="40";
+document.getElementById("breakdown").innerHTML=`<tr><td>Pilihan ganda</td><td>20</td><td>${mcCorrect}</td><td>${20-mcCorrect}</td><td>50</td></tr><tr><td>Benar–salah</td><td>10</td><td>${tfCorrect}</td><td>${10-tfCorrect}</td><td>25</td></tr><tr><td>Menjodohkan</td><td>10</td><td>${matchCorrect}</td><td>${10-matchCorrect}</td><td>25</td></tr><tr><th>Jumlah</th><th>40</th><th>${correct}</th><th>${wrong}</th><th>100</th></tr>`;
+document.getElementById("message").textContent=`Jawaban belum diisi: ${unanswered}. Nilai dihitung dari jawaban benar (setiap soal 2,5 poin).`;
+document.getElementById("result").style.display="block";document.getElementById("result").scrollIntoView({behavior:"smooth"});
+});
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+</script></body></html>
